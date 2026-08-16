@@ -1,0 +1,8 @@
+{
+  "name": "reader-enhancement",
+  "version": "0.1.0",
+  "description": "Shared native reader enhancement: ncnn Vulkan super resolution, MindSpore CUNet, comic vision and native image decode for HarmonyOS NEXT",
+  "main": "src/main/ets/Index.ets",
+  "license": "MIT",
+  "dependencies": {}
+}

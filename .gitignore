@@ -1,0 +1,5 @@
+.cxx/
+build/
+node_modules/
+oh_modules/
+*.har
