@@ -1307,7 +1307,16 @@ bool RunMindSporeUpscale(UpscaleTask &task)
 
 bool ValidateTask(UpscaleTask &task)
 {
-    if (task.width <= 0 || task.height <= 0 || task.stride < task.width * 4) {
+    // Bound dimensions before the stride comparison: width * 4 is int32
+    // arithmetic, so without a cap a hostile width near INT_MAX wraps the
+    // product negative and lets a tiny buffer pass validation before the
+    // size_t output allocation. 32768 matches the comic-path validators and
+    // keeps width * 4 <= 131072 (no overflow).
+    if (task.width <= 0 || task.height <= 0 || task.width > 32768 || task.height > 32768) {
+        task.error = "RGBA dimensions exceed the super-resolution boundary";
+        return false;
+    }
+    if (task.stride < task.width * 4) {
         task.error = "invalid RGBA dimensions or stride";
         return false;
     }
