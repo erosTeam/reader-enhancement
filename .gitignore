@@ -3,3 +3,4 @@ build/
 node_modules/
 oh_modules/
 *.har
+BuildProfile.ets
